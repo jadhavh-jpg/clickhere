@@ -1,79 +1,169 @@
-<!doctype html>
-<html lang="hi">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Follow @kasturidivine</title>
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%;background:linear-gradient(180deg,#7ec8ff,#4aa6ff);font-family:Inter,system-ui,Arial,sans-serif;color:#0b2140}
-    .poster{width:100%;max-width:420px;margin:12px auto;aspect-ratio:9/16;border-radius:16px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,0.25);position:relative;background:linear-gradient(180deg,#7ec8ff,#4aa6ff)}
-    .top{padding:28px 20px 8px;text-align:center;z-index:3;position:relative}
-    .logo{display:inline-flex;align-items:center;gap:12px;margin-bottom:8px}
-    .circle{width:56px;height:56px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.12);font-weight:700;color:#7b4f2b}
-    .handle{font-size:20px;font-weight:700;color:#fff;text-shadow:0 4px 12px rgba(0,0,0,0.25);margin-top:6px}
-    .cta{display:flex;flex-direction:column;align-items:center;gap:12px;padding:6px 20px;z-index:4;position:relative}
-    .click-here{font-size:14px;font-weight:800;color:#fff;letter-spacing:.6px;text-transform:uppercase;background:rgba(0,0,0,0.08);padding:8px 14px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.12)}
-    .follow-wrap{width:86%;max-width:360px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px}
-    .follow-btn{width:100%;background:linear-gradient(90deg,#ff4d6d,#ff7a3d);border-radius:14px;padding:18px 14px;text-align:center;font-size:28px;font-weight:900;color:#fff;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:12px;box-shadow:0 12px 34px rgba(255,90,80,0.2);position:relative;overflow:visible}
-    .follow-btn::after{content:"";position:absolute;left:-6px;right:-6px;top:-6px;bottom:-6px;border-radius:18px;z-index:-1;filter:blur(14px);animation:glow 1.6s infinite;opacity:.9}
-    @keyframes glow{0%{box-shadow:0 12px 30px rgba(255,90,80,0.20);transform:scale(1);opacity:.95}50%{box-shadow:0 20px 60px rgba(255,90,80,0.32);transform:scale(1.03);opacity:.7}100%{box-shadow:0 12px 30px rgba(255,90,80,0.20);transform:scale(1);opacity:.95}}
-    .follow-small{font-size:12px;color:#05324a;font-weight:700;background:#fff;padding:6px 10px;border-radius:8px;transform:translateY(-4px);box-shadow:0 6px 18px rgba(0,0,0,0.12)}
-    .bottom{position:absolute;left:0;right:0;bottom:0;height:44%;display:flex;align-items:flex-end;justify-content:center;z-index:2}
-    .photo{width:100%;height:100%;background-image:url('/mnt/data/KDABOUT.jpg');background-size:cover;background-position:center bottom;border-top-left-radius:28px;border-top-right-radius:28px;box-shadow:inset 0 30px 50px rgba(0,0,0,0.08)}
-    .numbers{position:absolute;left:12px;right:12px;bottom:12px;display:flex;gap:12px;justify-content:space-between;z-index:5;font-weight:800;color:#05324a}
-    .num-bubble{background:linear-gradient(180deg,#ffd29b,#ffb37a);padding:8px 12px;border-radius:12px;display:flex;gap:8px;align-items:center;box-shadow:0 8px 20px rgba(0,0,0,0.12);font-size:14px}
-  </style>
-</head>
-<body>
-  <div class="poster">
-    <div class="top">
-      <div class="logo"><img src="logo.png" alt="Kasturi Divine logo" style="width:110px;height:110px;border-radius:50%;box-shadow:0 6px 18px rgba(0,0,0,0.12);object-fit:cover"></div>
-      <div class="handle">@kasturidivine</div>
-    </div>
-    <div class="cta">
-      <div class="click-here">CLICK HERE</div>
-      <div class="follow-wrap">
-        <div class="follow-small">Tap to visit</div>
-        <a id="followBtn" class="follow-btn" href="https://www.instagram.com/kasturidivine/">Follow</a>
-      </div>
-    </div>
-    <div class="bottom"><div class="photo"></div></div>
-    <div class="numbers">
-      <div class="num-bubble">📞 9205681456</div>
-      <div class="num-bubble">📞 9736317525</div>
-    </div>
-  </div>
-  <script>
-    (function(){
-      const username = "kasturidivine";
-      const appLink = "instagram://user?username=" + username;
-      const webLink = "https://www.instagram.com/" + username + "/";
+/* Full style block for kasturi follow poster */
 
-      const btn = document.getElementById("followBtn");
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:linear-gradient(180deg,#7ec8ff,#4aa6ff);font-family:Inter,system-ui,Arial,sans-serif;color:#0b2140}
 
-      btn.addEventListener("click", function(e){
-        if(!/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)){
-          return;
-        }
-        e.preventDefault();
+/* Poster container */
+.poster{width:100%;max-width:420px;margin:12px auto;aspect-ratio:9/16;border-radius:16px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,0.25);position:relative;background:linear-gradient(180deg,#7ec8ff,#4aa6ff)}
 
-        const start = Date.now();
-        window.location = appLink;
+/* Twinkling diwali lights frame */
+.lights{position:absolute;inset:0;pointer-events:none;z-index:50}
+.lights .light{position:absolute;width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #fff, #ffd, #ff9);box-shadow:0 6px 18px rgba(255,200,60,0.25);opacity:0.95;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.25));animation:twinkle 1.6s infinite ease-in-out}
+@keyframes twinkle{0%{transform:scale(0.8);opacity:0.45}50%{transform:scale(1.25);opacity:1}100%{transform:scale(0.8);opacity:0.45}}
+/* positions for 12 lights around frame */
+.lights .light:nth-child(1){top:6px;left:22%;animation-delay:0s}
+.lights .light:nth-child(2){top:6px;left:44%;animation-delay:0.12s}
+.lights .light:nth-child(3){top:6px;left:66%;animation-delay:0.24s}
+.lights .light:nth-child(4){top:6px;right:22%;animation-delay:0.36s}
+.lights .light:nth-child(5){top:18%;right:6px;animation-delay:0.48s}
+.lights .light:nth-child(6){bottom:18%;right:6px;animation-delay:0.6s}
+.lights .light:nth-child(7){bottom:6px;right:22%;animation-delay:0.72s}
+.lights .light:nth-child(8){bottom:6px;left:44%;animation-delay:0.84s}
+.lights .light:nth-child(9){bottom:6px;left:22%;animation-delay:0.96s}
+.lights .light:nth-child(10){left:6px;bottom:22%;animation-delay:1.08s}
+.lights .light:nth-child(11){left:6px;top:24%;animation-delay:1.2s}
+.lights .light:nth-child(12){left:16%;top:6%;animation-delay:1.32s}
 
-        setTimeout(function(){
-          if(Date.now() - start < 1200){
-            window.location.href = webLink;
-          }
-        }, 1000);
-      });
+.top{padding:28px 20px 8px;text-align:center;z-index:3;position:relative}
+.logo img{width:56px;height:56px;border-radius:50%;box-shadow:0 6px 18px rgba(0,0,0,0.12);object-fit:cover}
+.handle{font-size:20px;font-weight:700;color:#fff;text-shadow:0 4px 12px rgba(0,0,0,0.25);margin-top:6px}
 
-      btn.addEventListener("keyup", function(e){
-        if(e.key === "Enter") btn.click();
-      });
-    })();
-  </script>
-</body>
-</html>
+.cta{display:flex;flex-direction:column;align-items:center;gap:10px;padding:6px 20px;z-index:6;position:relative}
 
+/* Click Here (now centered & prominent) */
+.click-here{font-size:16px;font-weight:900;color:#fff;letter-spacing:.6px;text-transform:uppercase;padding:10px 18px;border-radius:12px;background:linear-gradient(90deg,#ef416f,#ff7a3d);box-shadow:0 12px 30px rgba(255,90,80,0.18);display:inline-block;text-align:center}
 
+.arrow-down{font-size:30px;margin-top:6px;animation:arrowBlink 1.2s infinite;display:block;color:#fff}
+@keyframes arrowBlink{0%{opacity:1;transform:translateY(0)}50%{opacity:0.45;transform:translateY(6px)}100%{opacity:1;transform:translateY(0)}}
+
+.follow-wrap{width:86%;max-width:360px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px}
+
+/* NEXT LEVEL 🔥 NEON–GOLD HYBRID 3D GLASS BUTTON */
+
+/* BASE BUTTON (NEON + GOLD) */
+.follow-btn{
+  --neon:#4da6ff;
+  --gold1:#ffcf4a;
+  --gold2:#ff9f00;
+  width:100%;
+  padding:22px 20px;
+  border-radius:26px;
+  font-size:32px;
+  font-weight:900;
+  letter-spacing:0.5px;
+  color:#fff;
+  text-decoration:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:16px;
+  position:relative;
+  overflow:hidden;
+  backdrop-filter:blur(14px);
+  background:linear-gradient(145deg, rgba(0,150,255,0.35), rgba(0,80,255,0.25));
+  border:3px solid rgba(255,200,0,0.55);
+  box-shadow:
+      0 0 20px var(--neon),
+      0 20px 45px rgba(0,160,255,0.55),
+      inset 0 0 28px rgba(255,255,255,0.35),
+      inset 0 0 48px rgba(255,200,0,0.45);
+}
+
+/* NEON BLUE + GOLD INNER SHINE, FAST SWEEP */
+.follow-btn::before{
+  content:"";
+  position:absolute;
+  top:-140%;
+  left:-60%;
+  width:300%;
+  height:300%;
+  background:radial-gradient(circle at 50% 50%, rgba(255,255,255,0.95), rgba(255,255,255,0.05));
+  opacity:0.45;
+  transform:rotate(25deg);
+  animation:glassMove 1.6s infinite linear;
+}
+@keyframes glassMove{
+  0%{transform:translate(-80%,-80%) rotate(25deg);} 
+  100%{transform:translate(80%,80%) rotate(25deg);} 
+}
+
+/* OUTER 3D PULSE – MORE VIBRANT */
+.follow-btn::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:26px;
+  box-shadow:
+      0 0 35px rgba(0,160,255,0.95),
+      0 0 60px rgba(255,180,0,0.75);
+  animation:btnBlink 0.9s infinite ease-in-out;
+  z-index:-1;
+}
+@keyframes btnBlink{
+  0%{opacity:0.35;transform:scale(0.92);} 
+  50%{opacity:1;transform:scale(1.12);} 
+  100%{opacity:0.35;transform:scale(0.92);} 
+}
+
+/* INSTAGRAM ICON — NEON GLOW RING */
+.follow-btn .ig-icon{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5);
+  box-shadow:
+      0 0 10px rgba(255,120,200,0.85),
+      0 0 22px rgba(255,180,70,0.75),
+      0 0 30px rgba(0,150,255,0.65);
+  padding:4px;
+  position:relative;
+}
+
+/* ICON MASK */
+.follow-btn .ig-icon::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  margin:auto;
+  width:24px;
+  height:24px;
+  background:#fff;
+  -webkit-mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 6.9A4.1 4.1 0 1 0 16.1 13 4.1 4.1 0 0 0 12 8.9zM18.6 6.5a1.2 1.2 0 1 0 1.2 1.2 1.2 1.2 0 0 0-1.2-1.2z"/></svg>') center/contain no-repeat;
+}
+
+/* The motivational lines area */
+.motivation{width:90%;max-width:380px;margin-top:6px;text-align:center;color:#05324a;font-weight:700;z-index:6}
+.motivation .line{font-size:14px;margin:6px 0;line-height:1.3}
+.motivation .word{opacity:0.9;transition:color .2s, transform .12s}
+.motivation .word.active{color:var(--main);transform:scale(1.08);text-shadow:0 8px 18px rgba(255,80,100,0.18)}
+
+/* Bottom image area */
+.bottom{position:absolute;left:0;right:0;bottom:0;height:44%;display:flex;align-items:flex-end;justify-content:center;z-index:2}
+.photo{width:100%;height:100%;background-image:url('/mnt/data/KDABOUT.jpg');background-size:cover;background-position:center bottom;border-top-left-radius:28px;border-top-right-radius:28px;box-shadow:inset 0 30px 50px rgba(0,0,0,0.08)}
+
+/* Mobile numbers color cycle */
+.numbers{position:absolute;left:12px;right:12px;bottom:12px;display:flex;gap:12px;justify-content:space-between;z-index:7;font-weight:900;color:#05324a}
+.num-bubble{padding:8px 12px;border-radius:12px;display:flex;gap:8px;align-items:center;box-shadow:0 8px 20px rgba(0,0,0,0.12);font-size:14px}
+.num1{animation:colorCycle 5s infinite}
+.num2{animation:colorCycle 5s infinite .6s}
+@keyframes colorCycle{0%{background:linear-gradient(180deg,#ffd29b,#ffb37a);color:#05324a}25%{background:linear-gradient(180deg,#b6ffb3,#65d26b);color:#08410a}50%{background:linear-gradient(180deg,#bde0ff,#5aa3ff);color:#052a5a}75%{background:linear-gradient(180deg,#ffd1f0,#ff87d1);color:#3e003e}100%{background:linear-gradient(180deg,#ffd29b,#ffb37a);color:#05324a}}
+
+/* Cinematic grain + glow overlay */
+.cinematic-overlay{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    z-index:999;
+    background:
+       radial-gradient(rgba(255,255,255,0.14), rgba(0,0,0,0.35)),
+       url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter><rect width="120" height="120" filter="url(%23noise)" opacity="0.32"/></svg>');
+    mix-blend-mode:overlay;
+    animation:cinematicGlow 6s infinite ease-in-out;
+}
+@keyframes cinematicGlow{
+    0%{opacity:0.35;filter:brightness(1);} 
+    50%{opacity:0.6;filter:brightness(1.25);} 
+    100%{opacity:0.35;filter:brightness(1);} 
+}
+
+@media (max-width:360px){.follow-btn{font-size:20px;padding:14px;border-radius:12px}.handle{font-size:18px}}
