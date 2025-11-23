@@ -1,5 +1,11 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Follow @kasturidivine</title>
+  <style>
 /* Full style block for kasturi follow poster */
-
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;background:linear-gradient(180deg,#7ec8ff,#4aa6ff);font-family:Inter,system-ui,Arial,sans-serif;color:#0b2140}
 
@@ -167,3 +173,119 @@ html,body{height:100%;background:linear-gradient(180deg,#7ec8ff,#4aa6ff);font-fa
 }
 
 @media (max-width:360px){.follow-btn{font-size:20px;padding:14px;border-radius:12px}.handle{font-size:18px}}
+  </style>
+</head>
+<body>
+  <div class="poster" id="poster">
+
+    <!-- Cinematic overlay (grain + glow) -->
+    <div class="cinematic-overlay" aria-hidden="true"></div>
+
+    <!-- Diwali lights frame -->
+    <div class="lights" aria-hidden="true">
+      <span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span>
+      <span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span>
+      <span class="light"></span><span class="light"></span><span class="light"></span><span class="light"></span>
+    </div>
+
+    <div class="top">
+      <div class="logo"><img src="/mnt/data/logo.png" alt="Kasturi Divine logo"></div>
+      <div class="handle">@kasturidivine</div>
+    </div>
+
+    <div class="cta">
+      <div class="click-here">CLICK HERE</div>
+      <div class="arrow-down">⬇</div>
+
+      <div class="follow-wrap">
+        <div class="follow-small">Tap to visit</div>
+        <a id="followBtn" class="follow-btn" href="https://www.instagram.com/kasturidivine/">
+          <span class="ig-icon" aria-hidden="true"></span>
+          <span style="margin-left:6px">Follow</span>
+        </a>
+
+        <!-- Motivational lines (words will highlight sequentially) -->
+        <div class="motivation" id="motivationArea">
+          <div class="line" data-line="know yourself">know yourself</div>
+          <div class="line" data-line="Trust the Divine power within you.">Trust the Divine power within you.</div>
+          <div class="line" data-line="The universe offers sll things to all people">The universe offers sll things to all people</div>
+          <div class="line" data-line="we can create our own future.">we can create our own future.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom" aria-hidden="true"><div class="photo"></div></div>
+
+    <div class="numbers" aria-hidden="true">
+      <div class="num-bubble num1">📞 9205681456</div>
+      <div class="num-bubble num2">📞 9736317525</div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const username = "kasturidivine";
+      const appLink = "instagram://user?username=" + username;
+      const webLink = "https://www.instagram.com/" + username + "/";
+
+      const btn = document.getElementById("followBtn");
+      btn.addEventListener("click", function(e){
+        if(!/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)){
+          return; // open web normally on desktop
+        }
+        e.preventDefault();
+        const start = Date.now();
+        window.location = appLink;
+        setTimeout(function(){ if(Date.now() - start < 1200){ window.location.href = webLink; } }, 1000);
+      });
+      btn.addEventListener("keyup", function(e){ if(e.key === "Enter") btn.click(); });
+
+      // Sequentially highlight each word across all lines
+      const motivation = document.getElementById('motivationArea');
+      const lines = Array.from(motivation.querySelectorAll('.line'));
+
+      // Break lines into spans per word
+      lines.forEach(lineEl => {
+        const text = lineEl.dataset.line.trim();
+        const words = text.split(/\s+/);
+        lineEl.innerHTML = words.map(w => `<span class="word">${w}</span>`).join(' ');
+      });
+
+      // Gather all word spans in order
+      const allWordSpans = Array.from(motivation.querySelectorAll('.word'));
+      let idx = 0;
+      const mainColor = getComputedStyle(document.documentElement).getPropertyValue('--main') || '#ff5166';
+
+      function highlightNext(){
+        // remove active from all
+        allWordSpans.forEach(s => s.classList.remove('active'));
+        // activate current
+        if(allWordSpans[idx]){
+          allWordSpans[idx].classList.add('active');
+          // ensure visible (could scroll into view within poster if needed)
+        }
+        idx++;
+        if(idx >= allWordSpans.length){
+          // stop after last word stays active briefly, then restart cycle after pause
+          setTimeout(function(){ idx = 0; }, 1200);
+        }
+      }
+      // Start cycling every 650ms
+      highlightNext();
+      setInterval(highlightNext, 650);
+
+      // Also pulse arrow when follow button hovered/tapped
+      const arrow = document.querySelector('.arrow-down');
+      const clickHere = document.querySelector('.click-here');
+      clickHere.addEventListener('click', ()=>{ // smooth flash
+        arrow.style.animation = 'arrowBlink 1.2s infinite';
+      });
+
+      // Ensure the --main CSS var exists for word active color
+      const root = document.documentElement;
+      root.style.setProperty('--main', '#4da6ff');
+
+    })();
+  </script>
+</body>
+</html>
